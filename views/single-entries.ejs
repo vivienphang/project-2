@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Add Food to Track</title>
+  </head>
+  <body>
+    <%- include('header'); %>
+
+    <div class="form-container col-md-12 text-center">
+      <div class="row">
+        <div class="form-holder">
+          <div class="form-content">
+            <div class="form-items text-center">
+              <h2>Add Food to Track</h2>
+              <p>Fill in the data below.</p>
+              <form
+                class="text-center requires-validation"
+                action="/single-entry/:id"
+                method="POST"
+                novalidate
+              >
+                <br />
+
+                <div class="col-md-3">
+                  <label for="foodName">Food Name:</label> <br />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="foodName"
+                    name="foodName"
+                    value="<%= food_name %>"
+                    required
+                  /><br />
+                  <div class="valid-feedback">Food Name field is valid!</div>
+                  <div class="invalid-feedback">
+                    <b>Food Name</b> cannot be black!
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="text">Category:</label> <br />
+                  <select
+                    class="form-select mt-3"
+                    name="category_id"
+                    id="category_id"
+                    required
+                  >
+                    <option value="<%= category_id %>">
+                      <%= category_name %>
+                    </option>
+                    <!-- <option value="2">Meat 🥩🥓</option>
+                    <option value="3">Seafood 🍤🦪</option>
+                    <option value="4">Vegetables 🥬🥕</option>
+                    <option value="5">Processed Food 🍥🥡</option>
+                    <option value="6">Fruits 🫐🥑</option>
+                    <option value="7">Snacks 🍿🍪</option>
+                    <option value="8">Wet Food 🍜🍣</option>
+                    <option value="9">Canned Goods 🥫</option>
+                    <option value="10">Spices 🧄🧅</option> -->
+                  </select>
+                  <div class="valid-feedback">You selected a Food Category</div>
+                  <div class="invalid-feedback">
+                    Please select a <b>Food Category!</b>
+                  </div>
+                </div>
+                <br />
+
+                <div class="col-md-3">
+                  <label for="text">Location:</label> <br />
+                  <select
+                    class="form-select mt-3"
+                    name="location_id"
+                    id="location_id"
+                    required
+                  >
+                    <option value="<%= location_id %>">
+                      <%= location_name %>
+                    </option>
+                    <!-- <option value="2">Fridge</option>
+                    <option value="3">Freezer</option> -->
+                  </select>
+                  <div class="valid-feedback">You selected a location</div>
+                  <div class="invalid-feedback">
+                    Please select a <b>Food Location!</b>
+                  </div>
+                </div>
+                <br />
+
+                <div class="col-md-3">
+                  <label for="date">Purchase Date:</label> <br />
+                  <input
+                    type="date"
+                    id="purchaseDate"
+                    name="purchaseDate"
+                    value="<%= purchase_date %>"
+                  />
+                  <%= purchase_date %> />
+                  <br />
+                </div>
+                <br />
+
+                <div class="col-md-3">
+                  <label for="date">Open Date:</label> <br />
+                  <input
+                    type="date"
+                    id="openDate"
+                    name="openDate"
+                    value="<%= open_date %>"
+                  />
+                  <%= open_date %> />
+                </div>
+                <br />
+
+                <div class="col-md-3">
+                  <label for="date">Expiry Date:</label> <br />
+                  <input
+                    type="date"
+                    id="expiryDate"
+                    name="expiryDate"
+                    value="<%= expiry_date %>"
+                  />
+                  <%= expiry_date %> /> />
+                </div>
+                <br />
+
+                <!-- <div class="col-md-3">
+                  <label for="text">User ID:</label> <br />
+                  <input type="text" id="userID" name="userID" required />
+                  <br />
+                </div>
+                <br /> -->
+
+                <br /><button type="submit" class="btn btn-dark">
+                  Add to List
+                </button>
+                <br />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </body>
+</html>

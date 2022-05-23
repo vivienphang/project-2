@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Luckiest+Guy&family=Space+Mono&display=swap");
+
+body {
+  background-color: #dfd2be;
+  font-family: Arial;
+  color: rgb(114, 68, 18);
+}
+
+.navbar-brand {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 50px;
+  color: darkgreen;
+}
+
+h2 {
+  font-family: "Luckiest Guy", cursive;
+}
+
+.form-content .form-items {
+  border: 3px white;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  width: 100%;
+  min-width: 540px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-align: left;
+}
