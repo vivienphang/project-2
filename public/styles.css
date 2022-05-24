@@ -4,19 +4,46 @@ body {
   background-color: #dfd2be;
   font-family: Arial;
   color: rgb(114, 68, 18);
+  padding: 15px;
 }
 
 .navbar-brand {
   font-family: "Luckiest Guy", cursive;
   font-size: 50px;
-  color: darkgreen;
 }
 
+h1,
 h2 {
   font-family: "Luckiest Guy", cursive;
+  font-size: 50px;
+}
+
+.main-header-bg {
+  background: linear-gradient(
+      0deg,
+      rgba(25, 25, 25, 0.3),
+      rgba(255, 254, 253, 0.3)
+    ),
+    url("https://cdn.dribbble.com/users/1786581/screenshots/5471645/media/e3fa3b22c7431dd71ddc51597de6e354.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 0.8; */
+}
+
+.header-bg {
+  background: linear-gradient(
+      0deg,
+      rgba(25, 25, 25, 0.3),
+      rgba(255, 254, 253, 0.3)
+    ),
+    url("https://img.freepik.com/free-photo/flat-lay-healthy-food-arrangement_23-2148516723.jpg?size=626&ext=jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 0.8; */
 }
 
 .form-content .form-items {
+  padding-top: 50px;
   border: 3px white;
   display: inline-block;
   justify-content: center;
@@ -28,4 +55,61 @@ h2 {
   -moz-border-radius: 10px;
   border-radius: 10px;
   text-align: left;
+}
+.btn-dark:hover {
+  color: #b4045f;
+}
+
+.btn-dark {
+  border-radius: 5px;
+  background-color: #53340d;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  padding: 18px;
+  width: 180px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn-dark span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn-dark span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.btn-dark:hover span {
+  padding-right: 25px;
+}
+
+.btn-dark:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.form-header-bg {
+  margin-top: 20px;
+  padding: 50px;
+  border-radius: 10%;
+  background: linear-gradient(
+    10deg,
+    rgba(91, 45, 8, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+.navbar-nav > li {
+  padding-left: 20px;
 }

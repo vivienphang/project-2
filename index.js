@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import pg from 'pg';
 import jsSHA from 'jssha';
 const { Pool } = pg;
+import method from 'moment';
 
 // the SALT is a constant value
 const SALT = "Fresh food always"
@@ -15,6 +16,7 @@ app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(cookieParser())
 app.use(express.urlencoded( { extended: false } ))
+
 
 // setup postgres DB connection
 const pgConnectionConfigs = {
@@ -34,6 +36,11 @@ pool.connect(); // this connects to the DB
 // Function for home page
 const homePage = (req, res) => {
   res.render('home');
+}
+
+// Function for home page
+const dashPage = (req, res) => {
+  res.render('dashboard');
 }
 
 // Sign up form and function
@@ -87,7 +94,8 @@ const isLoggedIn = (req, res) => {
     // get user records from results
     const user = result.rows[0]
     const userID = result.rows[0].id
-    console.log(result.rows.id)
+    const userName = result.rows[0].name
+    console.log(result.rows)
     //initialise shaObj
     const shaObj = new jsSHA('SHA-512', 'TEXT', {encoding: 'UTF8'});
     // input the password from the request to shaObj
@@ -103,14 +111,20 @@ const isLoggedIn = (req, res) => {
     }
     res.cookie('loggedIn', true);
     res.cookie("users_id", userID)
+    res.cookie("users_name", userName)
     // // redirect to home page to show a list
-    res.send('User logged in.');
+    res.redirect('/dashboard');
+    console.log('redirect works')
   });
 }
 // new entry form
 const newEntry = (req, res) => {
   console.log('rendering new entry form')
-  res.render('entry-form')
+  const { users_name } = req.cookies
+  console.log(users_name)
+  const ejsObj = { users_name }
+  console.log(ejsObj)
+  res.render('entry-form', ejsObj)
 }
 
 // Function to add new food item
@@ -127,6 +141,7 @@ const addEntry = (req, res) => {
     } = req.body;
   console.log(req.body)
   const { users_id } = req.cookies
+  const { users_name } = req.cookies
   console.log(req.cookies)
 
   // make query to insert data into DB
@@ -141,13 +156,22 @@ const addEntry = (req, res) => {
 };
 
 // Function to handle all entries
-// const allEntries = (req, res) => {
-//   console.log('rendering single entry')
-//   const entryDataObj = data[req.params.index]; 
-//   console.log(entryDataObj)
-//   console.log(req.params.index)
-//   res.render('all-entries')
-// }
+const allEntries = (req, res) => {
+  console.log('rendering single entry')
+  const values = [
+    req.cookies.id,
+    req.body.name,
+    req.body.category_id,
+    req.body.location_id,
+    req.body.purchase_date,
+    req.body.open_date,
+    req.body.expiry_date,
+  ]
+  const entryDataObj = data[req.params.index]; 
+  console.log(entryDataObj)
+  console.log(req.params.index)
+  res.render('all-entries')
+}
 
 // Function to handle single entry
 const singleEntry = (req, res) => {
@@ -164,12 +188,59 @@ const singleEntry = (req, res) => {
     .then((result) => {
       const entryObj = result.rows[0]
       console.log(result.rows[0])
-      res.render('single-entries', entryObj)
+      // modify dates
+      const newPurchaseDate = entryObj.purchase_date.toISOString().slice(0, 10);
+      console.log(newPurchaseDate)
+      entryObj.purchase_date = newPurchaseDate;
+      const newOpenDate = entryObj.open_date.toISOString().slice(0, 10);
+      console.log(newOpenDate)
+      entryObj.open_date = newOpenDate;
+      const newExpiryDate = entryObj.expiry_date.toISOString().slice(0, 10);
+      console.log(newExpiryDate)
+      entryObj.expiry_date = newExpiryDate;
+      res.render('single-entry', entryObj)
     }).catch((error) => {
       console.log('error:', error)
     }
 )}
 
+// const displayOneEntry = (req, res) => {
+//   let ejsObj;
+
+//   pool.query(`SELECT * FROM food WHERE id = '${req.params.id}'`)
+//   .then((result) => {
+//     ejsObj = result.rows[0]
+//     return pool.query(`SELECT * FROM category WHERE id = '${ejsObj.category_id}'`)
+//   })
+//   .then((result) => {
+//     const categoryName = result.rows[0]
+//     ejsObj.category_name = categoryName
+//     return pool.query(`SELECT * FROM location WHERE id = '${ejsObj.category_name}'`)
+//   })
+//   .then((result) => {
+//     const locationName = result.rows[0]
+//     ejsObj.location_name = locationName
+//     res.render('single-entry', ejsObj)
+//   })
+//   .catch((error) => {
+//     console.log('error', error)
+//   })
+// }
+
+// Setting expiry date calculator
+// const timeNow = moment (new Date());
+
+
+// Function to logout
+// DELETE /api/auth/logout
+const isLoggedOut = (req, res) => {
+  console.log('logging out')
+  res.clearCookie("loggedIn");
+  res.clearCookie("users_id");
+  res.clearCookie("users_name");
+  res.render('logout')
+
+}
 
 
 /* ####################################################
@@ -185,10 +256,13 @@ app.post('/new-entry', addEntry);
 // app.get('/all-entries', allEntries);
 app.get('/single-entry/:id', singleEntry);
 // app.get('/single-entry/:id/edit', editEntry);
+app.get('/logout', isLoggedOut)
+app.delete('/logout', isLoggedOut)
 
 
 // Last
 app.get('/home', homePage)
+app.get('/dashboard', dashPage)
 
 // Setup port
 const PORT = 8000;
