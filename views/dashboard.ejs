@@ -12,40 +12,44 @@
     <script src=" https://cdn.dribbble.com/users/1786581/screenshots/5471645/media/e3fa3b22c7431dd71ddc51597de6e354.gif"></script>
   </head>
   <body>
-    <%- include('header-dash'); %>
+    <%- include('header-dash-only'); %>
     <div class="main-header-bg container-fluid p-5 text-center">
-      <h1>My First Bootstrap Page</h1>
-      <p>Resize this responsive page to see the effect!</p>
+      <h1>Welcome to Your Dashboard</h1>
+      <h5>Navigate your food tracker in a single page!</h5>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-6">
       <div class="row">
-        <div class="col-sm-4 form-header-bg">
-          <h3>Column 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <div class="col-sm-6 form-header-bg text-center mt-6">
+          <h2>Add info</h2>
           <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris...
+            Add your food information to start tracking.<br />
+            Eat your food before they go bad and say bye-bye to smelly fridges!
           </p>
+          <button
+            type="submit"
+            class="btn btn-dark"
+            onclick="window.location.href='/new-entry'"
+          >
+            <span> Add Here 🍉 </span>
+          </button>
         </div>
-        <div class="col-sm-4 form-header-bg">
-          <h3>Column 2</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+
+        <div class="col-sm-6 form-header-bg text-center">
+          <h2>View & Track</h2>
           <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris...
+            You are in control! <br />
+            Featuring view, edit and delete options to suit your preference.
           </p>
-        </div>
-        <div class="col-sm-4 form-header-bg">
-          <h3>Column 3</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris...
-          </p>
+          <button
+            type="submit"
+            class="btn btn-dark"
+            onclick="window.location.href='/all-entries'"
+          >
+            <span> View All 🍟 </span>
+          </button>
         </div>
       </div>
     </div>
   </body>
 </html>
-<!-- https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js -->
