@@ -1,6 +1,6 @@
 # Frisk! 
 
-Frisk! *(Which means Fresh in Danish)* is a full-stack food tracker application for the modern homeowners. This enables them to track existing perishable in their kitchen and consume them before they go bad.
+Frisk! *(Frisk: means Fresh in Danish)* is a full-stack food tracker application for the modern homeowners. This enables them to track existing perishable in their kitchen and consume them before they go bad.
 
 It features an expiration timer which tells the user when their perishables have expired.
 
